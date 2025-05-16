@@ -2,7 +2,7 @@ package Task3_NTree;
 
 import java.util.ArrayList;
 
-public class Main {
+public class Main2 {
     public static void main(String[] args) {
         TreeNode<Integer> root = new TreeNode<>(7);
         root.addChild(1);
@@ -35,31 +35,25 @@ public class Main {
             return "NULL";
         }
 
-        String childrenStr;
-        if (root.descendants.isEmpty()) {
-            childrenStr = "NULL";
-        } else {
-            childrenStr = childrens(root.descendants, 0);
-        }
+        String string = "(" + root.value;
+        if (!root.descendants.isEmpty()) {
+            string += ", ";
+            for (int i = 0; i < root.descendants.size(); i++) {
+                string +=obhod((TreeNode) root.descendants.get(i));
+                if (i < root.descendants.size()-1) {
+                    string +=", ";
+                }
+            }
 
-        return "(" + root.value + ", " + childrenStr + ")";
+        } else {
+            string += ", NULL";
+        }
+        string += ")";
+
+        return string;
     }
 
-    //рекурсивная функция для обработки списка детей
-    private static String childrens(ArrayList<TreeNode> children, int index) {
-        if (index >= children.size()) {
-            return "";
-        }
 
-        String currentChildStr = obhod(children.get(index));
-        String remainingChildrenStr = childrens(children, index + 1);
-
-        if (remainingChildrenStr.isEmpty()) {
-            return currentChildStr;
-        } else {
-            return currentChildStr + ", " + remainingChildrenStr;
-        }
-    }
 
 
     public static class TreeNode <T> {
